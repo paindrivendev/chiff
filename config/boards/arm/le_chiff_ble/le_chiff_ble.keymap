@@ -40,11 +40,90 @@
         
     };
 
+    macros {
+        // German Characters
+        de_ae: de_ae {
+            label = "DE_AE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp RALT &kp U &kp N0 &kp N0 &kp E &kp N4 &kp RET>;  // ä (00E4)
+        };
+        de_oe: de_oe {
+            label = "DE_OE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp RALT &kp U &kp N0 &kp N0 &kp F &kp N6 &kp RET>;  // ö (00F6)
+        };
+        de_ue: de_ue {
+            label = "DE_UE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp RALT &kp U &kp N0 &kp N0 &kp F &kp C &kp RET>;  // ü (00FC)
+        };
+        de_ss: de_ss {
+            label = "DE_SS";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp RALT &kp U &kp N0 &kp N0 &kp D &kp F &kp RET>;  // ß (00DF)
+        };
+
+        // Turkish Characters
+        tr_i: tr_i {
+            label = "TR_I";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp RALT &kp U &kp N0 &kp N1 &kp N3 &kp N1 &kp RET>;  // ı (0131)
+        };
+        tr_g: tr_g {
+            label = "TR_G";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp RALT &kp U &kp N0 &kp N1 &kp N1 &kp F &kp RET>;  // ğ (011F)
+        };
+        tr_s: tr_s {
+            label = "TR_S";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp RALT &kp U &kp N0 &kp N1 &kp N5 &kp F &kp RET>;  // ş (015F)
+        };
+        tr_c: tr_c {
+            label = "TR_C";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp RALT &kp U &kp N0 &kp N0 &kp E &kp N7 &kp RET>;  // ç (00E7)
+        };
+        tr_o: tr_o {
+            label = "TR_O";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp RALT &kp U &kp N0 &kp N0 &kp F &kp N6 &kp RET>;  // ö (00F6)
+        };
+    };
+
 #define BASE 0
 #define NUMBER 1
 #define SYMBOL 2
 #define ARROW 3
 #define TMUX 4
+#define ACCENT 5
 
 	keymap {
                 compatible = "zmk,keymap";
@@ -52,7 +131,7 @@
        		base_layer {
 		bindings = <
 		&kp Q &kp W &kp E &kp R &kp T 						        &kp Y &kp U  &kp I    &kp O   &kp P 
-                &kp A &lt TMUX S &lt NUMBER D &lt ARROW F &kp G 	        	        &kp H &kp J &kp K &kp L &kp SEMICOLON
+                &kp A &lt TMUX S &lt NUMBER D &lt ARROW F &kp G 	        	        &kp H &lt ACCENT J &kp K &kp L &kp SEMICOLON
 		&mt LSFT Z &kp X &kp C &kp V &kp B &kp C_MUTE				                &kp N &kp M  &kp CMMA &kp DOT &mt LSFT SLASH
           			&mt LALT ESC &lt SYMBOL SPACE   			 &lt SYMBOL ENTER  &mt LCTRL BSPC 
 		>;
@@ -95,9 +174,20 @@
 
 		tmux_layer {
 		bindings = <
-              &trans    &trans    &trans    &trans    &trans                         &trans    &trans    &kp LA(I)    &trans    &trans     
+              &trans    &trans    &trans    &trans    &trans                         &trans    &trans    &kp LA(LC(Y))    &trans    &trans     
               &trans    &trans    &trans    &trans    &trans                         &trans    &kp LC(H) &kp LC(J)    &kp LC(K)    &kp LC(L)
-              &trans    &trans    &trans    &trans    &trans     &kp C_MUTE                    &trans    &trans    &kp LA(COMMA)    &trans    &trans 
+              &trans    &trans    &trans    &trans    &trans     &kp C_MUTE                    &trans    &trans    &kp LA(LC(R))    &trans    &trans 
+                                   &trans     &trans                                  &trans    &trans  
+		>;
+
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+		};	
+
+		accent_layer {
+		bindings = <
+              &de_ss    &trans    &trans    &trans    &trans                         &trans    &de_ue    &tr_i    &de_oe    &trans     
+              &de_ae    &tr_s    &trans    &trans    &tr_g                         &trans    &trans    &trans    &trans    &trans
+              &trans    &trans    &tr_c    &trans    &trans     &kp C_MUTE          &trans    &trans    &trans    &trans    &trans 
                                    &trans     &trans                                  &trans    &trans  
 		>;
 
@@ -105,5 +195,3 @@
 		};	
 	};
 };
-
-
